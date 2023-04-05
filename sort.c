@@ -20,6 +20,7 @@ void heapify(int arr[], int n, int i)
 	int left = 2 * i + 1;
 	int right = 2 * i + 2;
 
+	// 
 	if (left < n && arr[left] > arr[largest])
 	{
 		largest = left;
@@ -151,18 +152,23 @@ int parseData(char *inputFileName, int **ppData)
 // prints first and last 100 items in the data array
 void printArray(int pData[], int dataSz)
 {
+	// Implement print array block
 	int i, sz = dataSz - 100;
 	printf("\tData:\n\t");
+	// print first 100 items
 	for (i = 0; i < 100; ++i)
 	{
+		// if data size is less than 100 PRINT ALL
 		if (i >= dataSz)
 		{
 			printf("\n\n");
 			return;
 		}
+		// print first 100 items
 		printf("%d ", pData[i]);
 	}
 	printf("\n\t");
+
 
 	for (i = sz; i < dataSz; ++i)
 	{
