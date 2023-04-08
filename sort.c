@@ -56,66 +56,74 @@ void heapSort(int arr[], int n)
 // extraMemoryAllocated counts bytes of extra memory allocated
 void merge(int pData[], int l, int m, int r)
 {
-	int i, j, k;
-	int n1 = m - l + 1;
-	int n2 = r - m;
+    int i, j, k;
+    int n1 = m - l + 1;
+    int n2 = r - m;
 
-	int L[n1], R[n2];
+    // create temp arrays
+    int *L = (int *)malloc(sizeof(int) * n1);
+    int *R = (int *)malloc(sizeof(int) * n2);
 
-	for (i = 0; i < n1; i++)
-	{
-		L[i] = pData[l + i];
-	}
+    // Copy data to temp arrays L[] and R[]
+    for (i = 0; i < n1; i++)
+    {
+        L[i] = pData[l + i];
+    }
+    for (j = 0; j < n2; j++){
+        R[j] = pData[m + 1 + j];
+    }
+    extraMemoryAllocated = extraMemoryAllocated + sizeof(int) * (n1 + n2);
 
-	for (j = 0; j < n2; j++)
-	{
-		R[j] = pData[m + 1 + j];
-	}
+    // Merge the temp arrays back into pData[l..r]
+    i = 0; // Initial index of first subarray
+    j = 0; // Initial index of second subarray
+    k = l; // Initial index of merged subarray
+    while (i < n1 && j < n2)
+    {
+        if (L[i] <= R[j])
+        {
+            pData[k] = L[i];
+            i++;
+        }
+        else
+        {
+            pData[k] = R[j];
+            j++;
+        }
+        k++;
+    }
 
-	i = 0;
-	j = 0;
-	k = l;
+    // Copy the remaining elements of L[], if there
+    while (i < n1)
+    {
+        pData[k] = L[i];
+        i++;
+        k++;
+    }
 
-	while (i < n1 && j < n2)
-	{
-		if (L[i] <= R[j])
-		{
-			pData[k] = L[i];
-			i++;
-		}
-		else
-		{
-			pData[k] = R[j];
-			j++;
-		}
-		k++;
-	}
-
-	while (i < n1)
-	{
-		pData[k] = L[i];
-		i++;
-		k++;
-	}
-
-	while (j < n2)
-	{
-		pData[k] = R[j];
-		j++;
-		k++;
-	}
+    // Copy the remaining elements of R[], if there
+    while (j < n2)
+    {
+        pData[k] = R[j];
+        j++;
+        k++;
+    }
 }
 void mergeSort(int pData[], int l, int r)
 {
-	if (l < r)
-	{
-		int m = l + (r - l) / 2;
 
-		mergeSort(pData, l, m);
-		mergeSort(pData, m + 1, r);
+    // Implement merge sort block
+    if (l < r)
+    {
 
-		merge(pData, l, m, r);
-	}
+        int m = (l + r) / 2;
+        // Sort first and second halves
+        mergeSort(pData, l, m);
+        mergeSort(pData, m + 1, r);
+
+        // Merge the sorted halves
+        merge(pData, l, m, r);
+    }
 }
 
 // parses input file to an integer array
