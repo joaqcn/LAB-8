@@ -20,17 +20,19 @@ void heapify(int arr[], int n, int i)
 	int left = 2 * i + 1;
 	int right = 2 * i + 2;
 
-	// 
+	// left child is larger than root
 	if (left < n && arr[left] > arr[largest])
 	{
 		largest = left;
 	}
 
+    //right child larger than root
 	if (right < n && arr[right] > arr[largest])
 	{
 		largest = right;
 	}
 
+    //keep swapping until root is not the largest
 	if (largest != i)
 	{
 		swap(&arr[i], &arr[largest]);
@@ -40,11 +42,13 @@ void heapify(int arr[], int n, int i)
 
 void heapSort(int arr[], int n)
 {
+    //creating max heap
 	for (int i = n / 2 - 1; i >= 0; i--)
 	{
 		heapify(arr, n, i);
 	}
 
+    //creating the heap sort
 	for (int i = n - 1; i >= 0; i--)
 	{
 		swap(&arr[0], &arr[i]);
@@ -93,7 +97,7 @@ void merge(int pData[], int l, int m, int r)
         k++;
     }
 
-    // Copy the remaining elements of L[], if there
+    // Copy the remaining elements of L[], if there any
     while (i < n1)
     {
         pData[k] = L[i];
@@ -101,7 +105,7 @@ void merge(int pData[], int l, int m, int r)
         k++;
     }
 
-    // Copy the remaining elements of R[], if there
+    // Copy the remaining elements of R[], if there any
     while (j < n2)
     {
         pData[k] = R[j];
